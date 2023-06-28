@@ -27,7 +27,7 @@ function processRecords() {
       sendPayslipEmail(employeeName, employeeEmail, payslipData);
       processedColumnRange.getCell(i + 1, 1).setValue(1);
     } catch (error) {
-      console.error("Error processing record for", employeeName, error);
+      logger.log("Error processing record for", employeeName, error);
       processedColumnRange.getCell(i + 1, 1).setValue("Error");
     }
   }
