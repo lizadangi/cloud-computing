@@ -1,0 +1,33 @@
+function sendPayslips() {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName("Payslip");
+
+
+    var range = sheet.getDataRange();
+    var data = range.getValues();
+
+
+    for (var i = 1; i < data.length; i++) {
+        var row = data[i];
+
+        var employeeName = row[0];
+        var employeeEmail = row[1];
+        var payslipData = row.slice(2);
+
+
+        var subject = "Payslip for " + employeeName;
+        var message = "Dear " + employeeName + ",\n\n" +
+            "Please find attached your payslip for the current month.\n\n" +
+            "Payslip Details:\n" +
+            "-------------------\n" +
+            payslipData.join("\n")
+            + "\nThank you!";
+
+        // Send the email
+        MailApp.sendEmail({
+            to: employeeEmail,
+            subject: subject,
+            body: message
+        });
+    }
+}
